@@ -1,0 +1,47 @@
+---
+services:
+  main:
+    image: inductiveautomation/ignition:8.1.45
+    ports:
+      - 9088:8088
+    volumes:
+      - main-data:/usr/local/bin/ignition/data
+    environment:
+      DISABLE_QUICKSTART: "Y"  
+      ACCEPT_IGNITION_EULA: "Y"
+      GATEWAY_ADMIN_USERNAME: ad
+      GATEWAY_ADMIN_PASSWORD: p
+      IGNITION_EDITION: standard
+    command: >
+      -n Main
+      -m 1024
+
+  edge:
+    image: inductiveautomation/ignition:8.1.45
+    ports:
+      - 9099:8088
+    volumes:
+      - edge-data:/usr/local/bin/ignition/data
+    environment:
+      DISABLE_QUICKSTART: "Y"    
+      ACCEPT_IGNITION_EULA: "Y"
+      GATEWAY_ADMIN_USERNAME: ad
+      GATEWAY_ADMIN_PASSWORD: p
+      IGNITION_EDITION: edge
+    command: >
+      -n Edge
+      -m 1024
+
+  mosquitto:
+    image: eclipse-mosquitto
+    ports:
+      - 1883:1883
+    volumes:
+      - ./mosquitto.conf:/mosquitto/config/mosquitto.conf
+
+volumes:
+  main-data:
+  edge-data:
+
+
+
