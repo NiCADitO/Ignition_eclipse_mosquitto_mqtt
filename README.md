@@ -1,4 +1,4 @@
-##'ignition_eclipse_mosquitto_mqtt`
+## ignition_eclipse_mosquitto_mqtt
 
 This repository provides a self-contained, Dockerized environment for demonstrating an **MQTT architecture** using **Inductive Automation's Ignition** (Main and Edge Gateways) and the **Eclipse Mosquitto MQTT Broker**.
 
