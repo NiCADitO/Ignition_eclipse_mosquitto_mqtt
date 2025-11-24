@@ -1,6 +1,6 @@
 ## ignition_eclipse_mosquitto_mqtt
 
-This is a self-contained, Dockerized environment for demoing an **MQTT** using **Inductive Automation's Ignition** (Main and Edge Gateways) and the **Eclipse Mosquitto MQTT Broker**.
+This is a self-contained, Dockerized environment for demoing **MQTT** using **Inductive Automation's Ignition** (Main and Edge Gateways) and the **Eclipse Mosquitto MQTT Broker**.
 
 This setup is ideal for quick testing, development, and demonstration of **Sparkplug B** integration and general MQTT data transport between an Edge device (Ignition Edge) and a central server (Ignition Gateway) using a third-party broker (Mosquitto).
 
