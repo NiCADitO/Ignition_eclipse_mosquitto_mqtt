@@ -1,8 +1,8 @@
 ## ignition_eclipse_mosquitto_mqtt
 
-This is a self-contained, Dockerized environment for demoing **MQTT** using **Inductive Automation's Ignition** (Main and Edge Gateways) and the **Eclipse Mosquitto MQTT Broker**.
+Dockerized environment for demoing **MQTT** using an Ignition Main and Edge Gateway and the Eclipse Mosquitto MQTT Broker.
 
-This setup is ideal for quick testing, development, and demonstration of **Sparkplug B** integration and general MQTT data transport between an Edge device (Ignition Edge) and a central server (Ignition Gateway) using a third-party broker (Mosquitto).
+This setup is for quick testing, development, and demonstration of Sparkplug B and general MQTT data between an Edge and a Central server using a third-party broker Mosquitto.
 
 -----
 
@@ -18,7 +18,7 @@ This setup is ideal for quick testing, development, and demonstration of **Spark
 
 ## ⚙️ Configuration Details
 
-The `docker-compose.yaml` file sets up three services:
+The `docker-compose.yaml` file sets up three containers:
 
 ### 1\. `mosquitto` (MQTT Broker)
 
@@ -29,33 +29,33 @@ The `docker-compose.yaml` file sets up three services:
     listener 1883
     allow_anonymous true
     ```
-    This allows any client to connect to the broker on the default MQTT port without credentials.
+    This allows any client to connect to the broker on the default MQTT non-TLS port.
 
-### 2\. `main` (Ignition Standard Gateway)
+### 2\. `main` (Standard Gateway)
 
   * **Image:** `inductiveautomation/ignition:8.1.45`
   * **Port:** Exposed on host port **9088** (`9088:8088`).
   * **Gateway Name:** `Main`
   * **Edition:** `standard`
-  * **Admin Credentials:** **Username** `ad`, **Password** `p` (for development only).
+  * **Admin Credentials:** **Username** `admin`, **Password** `password` (for development only).
 
-### 3\. `edge` (Ignition Edge Gateway)
+### 3\. `edge` (Edge Gateway)
 
   * **Image:** `inductiveautomation/ignition:8.1.45`
   * **Port:** Exposed on host port **9099** (`9099:8088`).
   * **Gateway Name:** `Edge`
   * **Edition:** `edge`
-  * **Admin Credentials:** **Username** `ad`, **Password** `p` (for development only).
+  * **Admin Credentials:** **Username** `admin`, **Password** `password` (for development only).
 
 -----
 
 ## Getting Started
 
-Follow these steps to quickly launch and test the environment:
+Follow these steps to launch:
 
-### 1\. Launch the Services
+### 1\. Launch the containers
 
-From the root directory of the repository, run the following command:
+Run the following command from the same directory as the .yaml file:
 
 ```bash
 docker compose up -d
@@ -65,14 +65,14 @@ This will pull the necessary images and start all three containers (`main`, `edg
 
 ### 2\. Access the Gateways
 
-Wait a few minutes for the Ignition Gateways to fully initialize. You can then access them via your web browser:
+Wait for the Ignition Gateways to fully initialize. You can then access them via the browser:
 
   * **Ignition Main Gateway:** [http://localhost:9088](https://www.google.com/search?q=http://localhost:9088)
   * **Ignition Edge Gateway:** [http://localhost:9099](https://www.google.com/search?q=http://localhost:9099)
 
 ### 3\. Configure MQTT Connectivity
 
-To demonstrate the architecture, you will need to configure the **MQTT Transmission** and **MQTT Engine** modules within the Gateways.
+You will need to configure the **MQTT Transmission** and **MQTT Engine** modules within the Gateways.
 
   * **On the `edge` Gateway (https://www.google.com/search?q=http://localhost:9099):**
 
@@ -84,7 +84,7 @@ To demonstrate the architecture, you will need to configure the **MQTT Transmiss
       * Install the **MQTT Engine** module.
       * Configure the MQTT Engine to connect to the broker using the hostname **`mosquitto`**. The port is `1883`.
 
-Once configured, the Edge Gateway will publish Sparkplug B data to the Mosquitto broker, and the Main Gateway will subscribe to and process that data, making it available in its Tag Provider.
+Once configured, the Edge Gateway will publish Sparkplug B data to the Mosquitto broker, and the Main Gateway will subscribe to and process that data, making it available in the Cirrus Link managed Tag Provider.
 
 -----
 
@@ -96,10 +96,14 @@ To stop and remove the containers and networks:
 docker compose down
 ```
 
-To remove the persistent data volumes as well (which resets the Ignition Gateways to their initial state):
+To remove the persistent data volumes as well (which resets the Ignition Gateways to their default state):
 
 ```bash
 docker compose down -v
 ```
 
-Would you like to know more about configuring the MQTT modules in Ignition?
+### Additional Documentation
+
+- https://docs.chariot.io/display/CLD80/MQTT+Engine
+- https://docs.chariot.io/display/CLD80/MQTT+Transmission
+- https://www.docs.inductiveautomation.com/docs/8.1/platform/docker-image
