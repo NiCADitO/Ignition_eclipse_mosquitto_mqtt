@@ -12,7 +12,6 @@ This setup is for quick testing, development, and demonstration of Sparkplug B a
 | :--- | :--- |
 | `docker-compose.yaml` | Defines the multi-container application, including the two Ignition instances and the Mosquitto broker. |
 | `mosquitto.conf` | Configuration file for the Mosquitto broker, enabling anonymous connections for this demonstration. |
-| `README.md` | This file. |
 
 -----
 
